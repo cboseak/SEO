@@ -19,8 +19,22 @@ namespace WebApplication11.Controllers
         {
             if (Request.QueryString["text"] != null)
             {
+                if (Request.QueryString["method"] != null)
+                {
+                    switch (Request.QueryString["method"])
+                    {
+                        case "Spinner":
+                            return Content(Library.Spinner.SpinText(Request.QueryString["text"]));
+                        case "Spun":
+                            return Content(Library.Spinner.GetSpunText(Request.QueryString["text"]));
+                        case "Light":
+                            return Content(Library.Spinner.GetLightSpunText(Request.QueryString["text"]));
+                    }
+                }
+                
                 return Content(Library.Spinner.SpinText(Request.QueryString["text"]));
             }
+
             return Content("");
         }
 

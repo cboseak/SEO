@@ -1,17 +1,51 @@
 ﻿<textarea id="convertText" cols="50" rows="10"></textarea>
-<button id="submitText">get</button>
+<button id="submitSpinner">Get Spinner Text</button>
+<button id="submitSpun">Get Spun Text</button>
+<button id="submitLightSpun">Get Light Spun Text</button>
 <br/><span style="width:200px;height:200px;" id="outputText" ></span>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script>
     var actionUrl = @Html.Raw(Json.Encode(Url.Action("Spin", "Home")));
-    $("#submitText").click(function () {
+    $("#submitSpinner")
+        .click(function() {
+            $.ajax({
+                url: actionUrl,
+                data: {
+                    "text": document.getElementById("convertText").value,
+                    "method": "Spinner"
+                },
+                type: "GET",
+                success: function(data) {
+                    document.getElementById("outputText").innerText = data;
+                }
+            });
+        });
+    $("#submitSpun")
+    .click(function() {
         $.ajax({
             url: actionUrl,
-            data: { "text": document.getElementById("convertText").value },
+            data: {
+                "text": document.getElementById("convertText").value,
+                "method": "Spun"
+            },
             type: "GET",
             success: function(data) {
                 document.getElementById("outputText").innerText = data;
             }
         });
-    })
+    });
+    $("#submitLightSpun")
+.click(function() {
+    $.ajax({
+        url: actionUrl,
+        data: {
+            "text": document.getElementById("convertText").value,
+            "method": "Light"
+        },
+        type: "GET",
+        success: function(data) {
+            document.getElementById("outputText").innerText = data;
+        }
+    });
+});
 </script>
